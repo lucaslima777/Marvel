@@ -6,33 +6,59 @@
     android:layout_height="match_parent"
     tools:context=".view.CharacterActivity">
 
-    <TextView
-        android:id="@+id/tv_response"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="response" />
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        app:shimmer_repeat_mode="restart">
 
-    <TextView
-        android:id="@+id/tv_error"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_response"
-        tools:text="erro" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <include layout="@layout/item_character" />
+
+            <include layout="@layout/item_character" />
+
+            <include layout="@layout/item_character" />
+
+            <include layout="@layout/item_character" />
+
+            <include layout="@layout/item_character" />
+
+            <include layout="@layout/item_character" />
+
+            <include layout="@layout/item_character" />
+
+            <include layout="@layout/item_character" />
+
+            <include layout="@layout/item_character" />
+
+            <include layout="@layout/item_character" />
+
+            <include layout="@layout/item_character" />
+
+            <include layout="@layout/item_character" />
+
+            <include layout="@layout/item_character" />
+
+            <include layout="@layout/item_character" />
+
+            <include layout="@layout/item_character" />
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewCharacter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_character" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

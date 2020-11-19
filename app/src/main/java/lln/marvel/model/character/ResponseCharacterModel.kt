@@ -8,5 +8,5 @@ data class ResponseCharacterModel(
     @SerializedName("etag")
     val etag: String,
     @SerializedName("data")
-    val data: DataCharacterModel
+    val characterModel: DataCharacterModel
 )
