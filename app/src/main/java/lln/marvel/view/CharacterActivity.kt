@@ -4,18 +4,17 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import lln.marvel.R
-import lln.marvel.util.custom.BaseActivity
 import lln.marvel.model.character.CharacterModel
-import lln.marvel.di.MarvelProvider
 import lln.marvel.state.State
 import lln.marvel.viewmodel.CharacterViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CharacterActivity : BaseActivity() {
+class CharacterActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: CharacterViewModel
+    val viewModel: CharacterViewModel by viewModel()
 
     private lateinit var tvResponse: TextView
     private lateinit var tvError: TextView
@@ -35,11 +34,6 @@ class CharacterActivity : BaseActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel = ViewModelProvider(
-            this,
-            MarvelProvider.provideViewModelFactory()
-        ).get(CharacterViewModel::class.java)
-
         viewModel.state.observe(this, Observer {
             when (it) {
                 is State.Success -> renderCharacters(it.data.data.results)
