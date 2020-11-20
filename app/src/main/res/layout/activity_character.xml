@@ -61,4 +61,8 @@
         tools:itemCount="5"
         tools:listitem="@layout/item_character" />
 
+    <include
+        layout="@layout/layout_error"
+        tools:visibility="invisible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

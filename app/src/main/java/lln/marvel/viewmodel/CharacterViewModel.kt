@@ -15,7 +15,7 @@ open class CharacterViewModel(private val repository: CharacterRepository) : Vie
 
     fun loadCharacter() {
         _state.value = State.InProgress(isLoading = true)
-        repository.fetchCharacter(object : OperationCallback<ResponseCharacterModel> {
+        val listener = object : OperationCallback<ResponseCharacterModel> {
             override fun onError(error: String?) {
                 _state.value = State.Error(error)
                 _state.value = State.InProgress(isLoading = false)
@@ -25,6 +25,8 @@ open class CharacterViewModel(private val repository: CharacterRepository) : Vie
                 _state.value = State.Success(data)
                 _state.value = State.InProgress(isLoading = false)
             }
-        })
+        }
+
+        repository.fetchCharacter(listener)
     }
 }

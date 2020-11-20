@@ -1,7 +1,10 @@
 package lln.marvel.view
 
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +21,8 @@ class CharacterActivity : AppCompatActivity() {
     val viewModel: CharacterViewModel by viewModel()
     private lateinit var recyclerviewCharacter: RecyclerView
     private lateinit var shimmerLayout: ShimmerFrameLayout
+    private lateinit var layoutError: ConstraintLayout
+    private lateinit var tvError: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +34,8 @@ class CharacterActivity : AppCompatActivity() {
     private fun initViews() {
         recyclerviewCharacter = findViewById(R.id.recyclerviewCharacter)
         shimmerLayout = findViewById(R.id.shimmerFrameLayout)
+        layoutError = findViewById(R.id.layout_error)
+        tvError = findViewById(R.id.tv_error)
     }
 
     private fun setupAdapter(listCharacterModel: List<CharacterModel>) {
@@ -46,16 +53,19 @@ class CharacterActivity : AppCompatActivity() {
         viewModel.state.observe(this, Observer {
             when (it) {
                 is State.Success -> setupAdapter(it.data.characterModel.results)
-                is State.Error -> loading(true)
+                is State.Error -> showError(it.exception)
                 is State.InProgress -> loading(it.isLoading)
             }
         })
     }
 
-    private fun loading(isShow: Boolean) = if (isShow) {
-        shimmerLayout.startShimmer()
-    } else {
-        shimmerLayout.stopShimmer()
+    private fun loading(isShow: Boolean) {
+        shimmerLayout.visibility = if (isShow) View.VISIBLE else View.GONE
+    }
+
+    private fun showError(statusError: String?) {
+        layoutError.visibility = View.VISIBLE
+        tvError.text = statusError
     }
 
     override fun onResume() {
